@@ -41,25 +41,6 @@ WHERE start_date > '2015-01-14';
 
 *****************************************************************************************************
 
-/***** MOs *****/
-
-SELECT [media_owner_id]
-      ,[media_owner_name]
-  FROM [ECOS_PSI_GOLIVE].[master_data].[media_owner]
-
-
-*****************************************************************************************************
-
-/***** Format Types *****/
-
-SELECT [format_type_id]
-      ,[format_type_name]
-      ,[format_type_name_mov]
-  FROM [ECOS_PSI_GOLIVE].[master_data].[format_type]
-
-
-*****************************************************************************************************
-
 CREATE TRIGGER instead_delete
 ON master_data.frame
 INSTEAD OF DELETE
