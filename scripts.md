@@ -60,4 +60,12 @@ SELECT [format_type_id]
 
 *****************************************************************************************************
 
-
+CREATE TRIGGER instead_delete
+ON master_data.frame
+INSTEAD OF DELETE
+AS
+BEGIN
+	UPDATE master_data.frame
+	SET is_active=0
+	WHERE frame_id IN (SELECT frame_id FROM deleted)
+END
