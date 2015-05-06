@@ -32,3 +32,13 @@ UPDATE txn_data.tbl_blueprint
 set business_id = table1.n
 FROM table1
 	INNER JOIN txn_data.tbl_blueprint tb ON (tb.created_by= table1.user_id)
+	
+/********************************************************************************************************/
+
+/********* Approved Orders with Media Detail lines not either Order Approved or Order Verified ******/
+
+select m.* from txn_data.tbl_media_order o
+    cross apply (select item from dbo.split(o.order_data,',')) a
+       join txn_data.tbl_media_detail m on a.item = m.media_detail_id and m.media_detail_status not in (7,8)
+where o.order_status = 'approved' and m.is_active = 1
+order by m.campaign_id, m.media_detail_id
