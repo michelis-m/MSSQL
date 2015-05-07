@@ -5,7 +5,6 @@ CREATE PROCEDURE [dbo].[FormatChange]
 AS
 BEGIN
 	DECLARE @error VARCHAR(1024)
-	DECLARE @msg VARCHAR(1024)
 	
 	BEGIN TRY
 	UPDATE master_data.frame
