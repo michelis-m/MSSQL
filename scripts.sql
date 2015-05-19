@@ -50,3 +50,24 @@ SELECT MIN(Col1) As Start,
 		(SELECT Col1, Col1 - ROW_NUMBER() OVER(Order By Col1) As grp)
 		FROM T1
 	GROUP BY grp;	
+/********************************************************************************************************/
+
+set identity_insert master_data.media_detail_master_data_opco_mapping on
+
+DECLARE @i int = 0
+
+WHILE @i < 14 --PSI
+BEGIN
+    SET @i = @i + 1
+
+	insert into master_data.media_detail_master_data_opco_mapping
+	(media_mapping_id,media_id,operating_company_id,created_date)
+	values
+	((select top 1 media_mapping_id 
+		from master_data.media_detail_master_data_opco_mapping 
+		order by media_mapping_id desc) + @i 
+	, (select top 1 media_id from master_data.media_detail_master_data order by media_id desc) + @i 
+	,4 
+	,CURRENT_TIMESTAMP) 
+END
+set identity_insert master_data.media_detail_master_data_opco_mapping off
