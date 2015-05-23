@@ -71,3 +71,14 @@ BEGIN
 	,CURRENT_TIMESTAMP) 
 END
 set identity_insert master_data.media_detail_master_data_opco_mapping off
+
+/********************************************************************************************************/
+
+UPDATE practise AS p
+SET costs = cte.ci *60
+FROM
+(
+	SELECT id,imp/sum(imp) over(partition by adid) AS ci
+	FROM practise
+) AS cte
+WHERE p.id=cte.id
